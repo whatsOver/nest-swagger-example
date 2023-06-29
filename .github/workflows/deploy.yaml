@@ -38,7 +38,7 @@ jobs:
           docker stop swagger
           docker rm swagger
           docker pull ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
-          docker run --name swagger -d -p 8080:8080 --env-file .env ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+          docker run --name swagger -d -p 8080:8080 ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
           docker ps -a
           exit
           EOF
