@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    image: ec2-biz:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: deploy
+      args:
+        - BUILDPLATFORM=linux/amd64
+    ports:
+      - 8080:8080
