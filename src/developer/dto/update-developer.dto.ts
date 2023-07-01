@@ -5,7 +5,7 @@ export class UpdateDeveloperDto {
     description: 'userId',
     example: 'b9a8f8f5-a5e1-4648-94a2-a3f64d0027a9',
   })
-  developerId!: string;
+  userId!: string;
 
   @ApiProperty({
     description: 'name',
@@ -21,7 +21,7 @@ export class UpdateDeveloperDto {
 
   @ApiProperty({
     description: 'techStacks',
-    example: '[React, TypeScript, JavaScript]',
+    example: '["React", "TypeScript", "JavaScript"]',
   })
   techStacks: string[];
 }
