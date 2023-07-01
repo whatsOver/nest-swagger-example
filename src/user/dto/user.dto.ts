@@ -5,5 +5,5 @@ export class UserDto {
     example: '1',
     description: '사용자 아이디',
   })
-  id!: number;
+  userId!: number;
 }
