@@ -1,33 +1,67 @@
-import { Injectable } from '@nestjs/common';
-import { UserDto } from './dto/user.dto';
-import { faker } from '@faker-js/faker';
-import { createRandomUser } from './util/user';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as fs from 'fs';
+import { User } from './interface/user';
+import { UpdateTokenDto } from './dto/update-user.dto';
+import { join } from 'path';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  /**
-   * 유저 정보 조회
-   */
-  getUser(dto: UserDto) {
-    console.log(dto);
-    return createRandomUser();
+  private readonly filePath = join(process.cwd(), 'src/data/users.json');
+
+  private readUsersFromFile() {
+    const data = fs.readFileSync(this.filePath, 'utf8');
+    return JSON.parse(data) as User[];
   }
 
-  /**
-   * 유저 리스트 조회
-   */
+  private writeUsersToFile(users: User[]) {
+    fs.writeFileSync(this.filePath, JSON.stringify(users, null, 2));
+  }
+
   getUsers() {
-    return faker.helpers.multiple(createRandomUser, {
-      count: 5,
-    });
+    return this.readUsersFromFile();
   }
 
-  /**
-   * 유저 정보 생성
-   */
-  createUser(dto: CreateUserDto) {
-    console.log(dto);
-    return createRandomUser();
+  async getUser(userId: number) {
+    const users = this.readUsersFromFile();
+    return users.find((user) => user.userId === Number(userId));
+  }
+
+  async getUserByEmail(email: string) {
+    const users = this.readUsersFromFile();
+    return users.find((user) => user.email === email);
+  }
+
+  async createUser(dto: CreateUserDto) {
+    const users = this.readUsersFromFile();
+    const duplicateUser = await this.getUserByEmail(dto.email);
+    if (duplicateUser) {
+      throw new HttpException('User already exists', HttpStatus.CONFLICT);
+    }
+    const password = await bcrypt.hash(dto.password, 10);
+    const newUser: User = {
+      userId: users.length + 1,
+      registeredAt: new Date(),
+      currentRefreshToken: '',
+      currentRefreshTokenExp: new Date(),
+      email: dto.email,
+      name: dto.name,
+      password,
+    };
+    const newUsers = [...users, newUser];
+    this.writeUsersToFile(newUsers);
+    return newUser;
+  }
+
+  async tokenUpdate(updateData: UpdateTokenDto) {
+    const users = this.readUsersFromFile();
+    const userIndex = users.findIndex(
+      (user) => user.userId === updateData.userId,
+    );
+    if (userIndex !== -1) {
+      users[userIndex] = { ...users[userIndex], ...updateData };
+      this.writeUsersToFile(users);
+    }
   }
 }

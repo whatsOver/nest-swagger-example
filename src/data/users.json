@@ -1,0 +1,27 @@
+[
+  {
+    "userId": "1",
+    "email": "user1@example.com",
+    "password": "$2b$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36Zf4d5b5Q1Z1Z1Z1Z1Z1Z1",
+    "currentRefreshToken": null,
+    "currentRefreshTokenExp": null
+  },
+  {
+    "userId": 2,
+    "registeredAt": "2024-07-06T18:42:56.316Z",
+    "currentRefreshToken": "$2b$10$J0vVIqIOp4O10EPEUerSvOqJMN7Sb/eMfeRi.2zVfqEUInZ8jasNK",
+    "currentRefreshTokenExp": "2024-07-06T19:01:40.148Z",
+    "email": "wshmin1234@gmail.com",
+    "name": "장동현",
+    "password": "$2b$10$5okAo.UgAK.i4vl7//U5x.MiT9X51LfYmGEBAAM5gqaIHAlxIedsK"
+  },
+  {
+    "userId": 3,
+    "registeredAt": "2024-07-06T18:59:23.840Z",
+    "currentRefreshToken": "",
+    "currentRefreshTokenExp": "2024-07-06T18:59:23.840Z",
+    "email": "wshmin1234@gmail.com",
+    "name": "장동현",
+    "password": "$2b$10$Ft.75ajuHnrFCYXDdjx/Te1Fe4cPguXhlHP1iVY1cOhCFHEAUIs9e"
+  }
+]

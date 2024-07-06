@@ -14,8 +14,8 @@ export class UserController {
     summary: '유저 정보 조회',
     description: '유저 정보를 조회합니다.',
   })
-  getUser(@Query() param: UserDto) {
-    return this.userService.getUser(param);
+  getUser(@Query('userId') userId: string) {
+    return this.userService.getUser(Number(userId));
   }
 
   @Post()

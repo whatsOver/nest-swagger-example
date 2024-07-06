@@ -1,9 +1,9 @@
 export interface User {
-  userId: string;
-  username: string;
+  userId: number;
+  name: string;
   email: string;
-  avatar: string;
   password: string;
-  birthDate: Date;
   registeredAt: Date;
+  currentRefreshToken: string;
+  currentRefreshTokenExp: Date;
 }

@@ -7,10 +7,13 @@ import { DeveloperModule } from './developer/developer.module';
 import { TodoController } from './todo/todo.controller';
 import { TodoModule } from './todo/todo.module';
 import { TodoService } from './todo/todo.service';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
-  imports: [UserModule, BlogModule, DeveloperModule, TodoModule],
-  controllers: [TodoController, UserController],
-  providers: [UserService, TodoService],
+  imports: [UserModule, BlogModule, DeveloperModule, TodoModule, AuthModule],
+  controllers: [AuthController, TodoController, UserController],
+  providers: [AuthService, TodoService, UserService],
 })
 export class AppModule {}
