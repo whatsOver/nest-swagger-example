@@ -36,6 +36,8 @@ async function bootstrap() {
       transform: true, // 요청에서 넘어온 자료들의 형변환
     }),
   );
-  await app.listen(8080);
+
+  const port = process.env.PORT || 8080;
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
