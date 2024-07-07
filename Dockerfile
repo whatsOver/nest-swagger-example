@@ -1,4 +1,4 @@
-FROM node:18.12.1 AS base
+FROM node:20.12.0 AS base
 RUN npm i -g pnpm
 WORKDIR /app
 
