@@ -4,13 +4,19 @@ import * as fs from 'fs';
 import { User } from './interface/user';
 import { UpdateTokenDto } from './dto/update-user.dto';
 import { join } from 'path';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
-  private readonly filePath = join(process.cwd(), 'src/data/users.json');
+  private readonly filePath = join(
+    process.cwd(),
+    process.env.NODE_ENV === 'production' ? 'app' : 'dist',
+    'data',
+    'users.json',
+  );
 
   private readUsersFromFile() {
+    console.log(process.env.NODE_ENV);
     const data = fs.readFileSync(this.filePath, 'utf8');
     return JSON.parse(data) as User[];
   }
