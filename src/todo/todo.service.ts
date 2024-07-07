@@ -8,7 +8,12 @@ import { TodoData } from './interface/todoData';
 
 @Injectable()
 export class TodoService {
-  private readonly filePath = join(process.cwd(), 'src/data/todos.json');
+  private readonly filePath = join(
+    process.cwd(),
+    process.env.NODE_ENV === 'production' ? 'app' : 'dist',
+    'data',
+    'todos.json',
+  );
 
   private readTodos(): TodoData {
     try {
